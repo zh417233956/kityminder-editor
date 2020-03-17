@@ -1,0 +1,28 @@
+<div class="panel panel-default" ng-init="flagEditorOpen = false" ng-show="flagEditorOpen">
+    <div class="panel-heading">
+        <h3 class="panel-title">图标</h3>
+        <!-- <span>（<a class="help" href="https://www.zybuluo.com/techird/note/46064" target="_blank">支持 GFM 语法书写</a>）</span> -->
+        <i class="close-note-editor glyphicon glyphicon-remove" ng-click="closeFlagEditor()"></i>
+    </div>
+    <div class="panel-body">
+        <!-- <div ng-show="flagEnabled" ui-codemirror="{ onLoad: codemirrorLoaded }" ng-model="flagContent" ui-codemirror-opts="{
+                gfm: true,
+                breaks: true,
+                lineWrapping : true,
+                mode: 'gfm',
+                dragDrop: false,
+                lineNumbers:true
+             }">
+        </div> -->
+        <!-- <p ng-show="!noteEnabled" class="km-note-tips">
+            请选择节点编辑备注
+        </p> -->
+        <ul class="km-priority tool-group">
+            <li class="km-priority-item tool-group-item" title="{{ 'logo' }}">
+                <div>
+                    <image class="km-priority-icon tool-group-icon" style="width:50px; height:50px" src="https://g.517cdn.com/c/images/2019/06/27/mangoonlie-big-bai.png"></image>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

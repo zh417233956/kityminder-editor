@@ -1,0 +1,19 @@
+<div class="btn-group-vertical note-btn-group" dropdown is-open="isopen">
+    <button type="button" class="btn btn-default note-btn" title="{{ 'relLine' | lang:'ui' }}" ng-class="{'active': isopen}" ng-click="minder.execCommand('relLine')" ng-disabled="minder.queryCommandState('note') === -1"></button>
+    <button type="button" class="btn btn-default image-btn-caption " ng-disabled="minder.queryCommandState('note') === -1" title="{{ 'relLine' | lang:'ui' }}" dropdown-toggle>
+        <span class="caption">{{ 'relLine' | lang:'ui' }}</span>
+        <span class="caret"></span>
+        <span class="sr-only">{{ 'relLine' | lang:'ui' }}</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href ng-click="minder.execCommand('relLine')">{{ 'insertRelLine' | lang:'ui' }}</a>
+        </li>
+        <li>
+            <a href ng-click="editRelLine()">{{ 'editRelLine' | lang:'ui' }}</a>
+        </li>
+        <li>
+            <a href ng-click="removeRelLine()">{{ 'removeRelLine' | lang:'ui' }}</a>
+        </li>
+    </ul>
+</div>
