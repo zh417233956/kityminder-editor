@@ -1,63 +1,67 @@
 angular.module('kityminderEditor')
-	.directive('kityminderEditor', ['config', 'minder.service', 'revokeDialog', function(config, minderService, revokeDialog) {
-		return {
-			restrict: 'EA',
-			templateUrl: 'ui/directive/kityminderEditor/kityminderEditor.html',
-			replace: true,
-			scope: {
-				onInit: '&'
-			},
-			link: function(scope, element, attributes) {
+    .directive('kityminderEditor', ['config', 'minder.service', 'revokeDialog', function(config, minderService, revokeDialog) {
+        return {
+            restrict: 'EA',
+            templateUrl: 'ui/directive/kityminderEditor/kityminderEditor.html',
+            replace: true,
+            scope: {
+                onInit: '&'
+            },
+            link: function(scope, element, attributes) {
 
-				var $minderEditor = element.children('.minder-editor')[0];
+                var $minderEditor = element.children('.minder-editor')[0];
 
-				function onInit(editor, minder) {
-					scope.onInit({
-						editor: editor,
-						minder: minder
-					});
+                function onInit(editor, minder) {
+                    scope.onInit({
+                        editor: editor,
+                        minder: minder
+                    });
 
-					minderService.executeCallback();
-				}
+                    minderService.executeCallback();
+                }
 
-				if (typeof(seajs) != 'undefined') {
-					/* global seajs */
-					seajs.config({
-						base: './src'
-					});
+                if (typeof(seajs) != 'undefined') {
+                    /* global seajs */
+                    seajs.config({
+                        base: './src'
+                    });
 
-					define('demo', function(require) {
-						var Editor = require('editor');
+                    define('demo', function(require) {
+                        var Editor = require('editor');
 
-						var editor = window.editor = new Editor($minderEditor);
+                        var editor = window.editor = new Editor($minderEditor);
 
-						if (window.localStorage.__dev_minder_content) {
-							editor.minder.importJson(JSON.parse(window.localStorage.__dev_minder_content));
-						}
+                        if (window.localStorage.__dev_minder_content) {
+                            editor.minder.importJson(JSON.parse(window.localStorage.__dev_minder_content));
+                            setTimeout(function() {
+                                window.minder._relLine_refresh();
+                            }, 1000);
 
-						editor.minder.on('contentchange', function() {
-							window.localStorage.__dev_minder_content = JSON.stringify(editor.minder.exportJson());
-						});
+                        }
 
-						window.minder = window.km = editor.minder;
+                        editor.minder.on('contentchange', function() {
+                            window.localStorage.__dev_minder_content = JSON.stringify(editor.minder.exportJson());
+                        });
 
-						scope.editor = editor;
-						scope.minder = minder;
+                        window.minder = window.km = editor.minder;
+
+                        scope.editor = editor;
+                        scope.minder = minder;
                         scope.config = config.get();
 
                         //scope.minder.setDefaultOptions(scope.config);
-						scope.$apply();
+                        scope.$apply();
 
-						onInit(editor, minder);
-					});
+                        onInit(editor, minder);
+                    });
 
-					seajs.use('demo');
+                    seajs.use('demo');
 
-				} else if (window.kityminder && window.kityminder.Editor) {
-					var editor = new kityminder.Editor($minderEditor);
+                } else if (window.kityminder && window.kityminder.Editor) {
+                    var editor = new kityminder.Editor($minderEditor);
 
-					window.editor = scope.editor = editor;
-					window.minder = scope.minder = editor.minder;
+                    window.editor = scope.editor = editor;
+                    window.minder = scope.minder = editor.minder;
 
                     scope.config = config.get();
 
@@ -66,6 +70,6 @@ angular.module('kityminderEditor')
                     onInit(editor, editor.minder);
                 }
 
-			}
-		}
-	}]);
+            }
+        }
+    }]);
